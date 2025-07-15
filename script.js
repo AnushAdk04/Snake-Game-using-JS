@@ -43,19 +43,38 @@ function gameloop() {
     else {
         snake.pop()
     }
+    draw()
 }
 
 
 function draw() {
     container.innerHTML = ''
 
+    // Draw the snake
     snake.forEach(segment => {
         const snakePart = document.createElement("div")
         snakePart.classList.add('snake')
         snakePart.style.left = segment.x + "px"
         snakePart.style.top = segment.y + "px"
+        snakePart.style.position = 'absolute'
         container.appendChild(snakePart)
     })
 
-    
+    // Draw the food
+    const foodElement = document.createElement("div")
+    foodElement.classList.add('food')
+    foodElement.style.left = food.x + "px"
+    foodElement.style.top = food.y + "px"
+    foodElement.style.position = 'absolute'
+    container.appendChild(foodElement)
 }
+
+
+
+function generateFood(){
+    const x = Math.floor(Math.random()*(containerSize / gridSize)) * gridSize
+    const  y = Math.floor(Math.random()*(containerSize / gridSize)) * gridSize
+    return {x,y}
+}
+
+draw()
